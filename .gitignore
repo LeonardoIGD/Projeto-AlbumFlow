@@ -18,6 +18,7 @@ static/admin
 static/rest_framework
 *.dev
 .pem
+.vscode/
 
 ### Django ###
 *.log
