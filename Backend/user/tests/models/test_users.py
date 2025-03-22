@@ -1,5 +1,5 @@
 from django.test import TestCase
-from fotografo.models.users import Photographer
+from Backend.user.models.profiles import Photographer
 from django.contrib.auth.models import User
 
 class PhotographerModelTest(TestCase):

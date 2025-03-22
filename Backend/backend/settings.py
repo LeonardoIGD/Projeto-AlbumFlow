@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     # apps
-    'fotografo.apps.FotografoConfig',
+    'user.apps.UserConfig',
 ]
 
 MIDDLEWARE = [

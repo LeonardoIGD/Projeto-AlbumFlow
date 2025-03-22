@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Users(models.Model):
+class Profile(models.Model):
     """
     Abstract base model for users.
 
@@ -25,7 +25,7 @@ class Users(models.Model):
         return f"{self.type_user}"
 
 
-class Photographer(Users):
+class Photographer(Profile):
     """
     Photographer model that extends the Users model.
 
@@ -42,7 +42,7 @@ class Photographer(Users):
     Methods:
         __str__: Returns a string representation of the Photographer instance, combining the username and type of user.
     """
-    user = models.OneToOneField(User, on_delete=models.CASCADE)  # Define a relação com User aqui
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     name_photographer = models.CharField(max_length=60)
     name_company = models.CharField(max_length=50)
     phone = models.CharField(max_length=20)
