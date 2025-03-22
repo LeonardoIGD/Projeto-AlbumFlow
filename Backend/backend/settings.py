@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'corsheaders',
     # apps
     'album',
-    
+    'user',
 ]
 
 MIDDLEWARE = [
