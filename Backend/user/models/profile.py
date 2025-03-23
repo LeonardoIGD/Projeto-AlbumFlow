@@ -42,7 +42,6 @@ class Photographer(Profile):
     Methods:
         __str__: Returns a string representation of the Photographer instance, combining the username and type of user.
     """
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
     name_photographer = models.CharField(max_length=60)
     name_company = models.CharField(max_length=50)
     phone = models.CharField(max_length=20)
@@ -51,5 +50,3 @@ class Photographer(Profile):
         verbose_name = "Photographer"
         verbose_name_plural = "Photographers"
 
-    def __str__(self):
-        return f"{self.user.username} - {self.type_user}"
