@@ -9,7 +9,7 @@ from album.api import (
 router = routers.DefaultRouter()
 
 router.register(r'', AlbumViewSet, basename='album-api')
-router.register(r'tag', TagViewSet, basename='goal-tag-api')
+router.register(r'tag', TagViewSet, basename='tag-api')
 
 urlpatterns = [
     path('', include(router.urls), name="album")
