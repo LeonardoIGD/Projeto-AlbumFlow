@@ -1,21 +1,17 @@
-from django.shortcuts import render
+from django.contrib.auth import authenticate
+from rest_framework import viewsets, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models.profile import Photographer
-from .serializers import PhotographerSerializer, LoginSerializer
-from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
-from rest_framework.permissions import IsAuthenticated
 
-class PhotographerApi(APIView):
-    permission_classes = [IsAuthenticated]
-    def get(self, request):
-        queryset = Photographer.objects.all()
-        serializer = PhotographerSerializer(queryset, many =True)
-        return Response({
-            "status" : True,
-            "data" : serializer.data
-        })
+from user.models import Photographer
+from user.api import PhotographerSerializer, LoginSerializer
+
+
+class PhotographerViewSet(viewsets.ModelViewSet):
+    queryset = Photographer.objects.all()
+    serializer_class = PhotographerSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 class LoginAPI(APIView):
     def post(self, request):
