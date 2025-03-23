@@ -2,8 +2,7 @@ import uuid
 from django.db import models
 from datetime import datetime
 
-from user.models import Photographer
-from .tag import Tag
+from user.models import Photographer, Tag
 
 
 class Album(models.Model):

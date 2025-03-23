@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from album.models import Tag
+from user.models import Tag
 
 
 class TagSerializer(serializers.ModelSerializer):

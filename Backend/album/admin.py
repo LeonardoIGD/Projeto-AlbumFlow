@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from album.models import Album, Tag
+from album.models import Album
 
 
 class AlbumAdmin(admin.ModelAdmin):
@@ -12,13 +12,3 @@ class AlbumAdmin(admin.ModelAdmin):
     ordering = ('id',)
 
 admin.site.register(Album, AlbumAdmin)
-
-class TagAdmin(admin.ModelAdmin):
-    model = Tag
-
-    list_display = ('id', 'name_tag', 'photographer')
-
-    search_fields = ('name_tag',)
-    ordering = ('id', 'name_tag')
-
-admin.site.register(Tag, TagAdmin)

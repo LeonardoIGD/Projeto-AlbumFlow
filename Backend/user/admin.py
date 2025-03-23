@@ -1,6 +1,8 @@
 from django.contrib import admin
 
-from .models.profile import Photographer
+from user.models import Photographer, Tag
+
+
 class PhotographerAdmin(admin.ModelAdmin):
     model = Photographer
 
@@ -10,3 +12,13 @@ class PhotographerAdmin(admin.ModelAdmin):
     ordering = ('name_photographer',)
 
 admin.site.register(Photographer, PhotographerAdmin)
+
+class TagAdmin(admin.ModelAdmin):
+    model = Tag
+
+    list_display = ('id', 'name_tag', 'photographer')
+
+    search_fields = ('name_tag',)
+    ordering = ('id', 'name_tag')
+
+admin.site.register(Tag, TagAdmin)

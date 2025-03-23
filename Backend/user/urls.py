@@ -3,12 +3,14 @@ from rest_framework import routers
 
 from user.api import (
     PhotographerViewSet,
-    LoginAPI
+    LoginAPI,
+    TagViewSet
 )
 
 router = routers.DefaultRouter()
 
 router.register(r'', PhotographerViewSet, basename='photographer-api')
+router.register(r'tag', TagViewSet, basename='tag-api')
 
 urlpatterns = [
     path('', include(router.urls), name="user"),
