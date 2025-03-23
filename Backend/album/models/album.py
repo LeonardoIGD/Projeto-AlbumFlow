@@ -2,51 +2,51 @@ import uuid
 from django.db import models
 from datetime import datetime
 
-class Album(models.Model):
-    id_album = models.AutoField(
-        primary_key=True,
-        verbose_name="Identificar do álbum"
-    )
+from user.models import Photographer
+from .tag import Tag
 
+
+class Album(models.Model):
     uuid_album = models.UUIDField(
         default=uuid.uuid4,
-        editable=False
+        editable=False,
+        verbose_name="Album UUID"
     );
 
     name_album = models.CharField(
         max_length=50,
-        verbose_name="Nome do álbum"
+        verbose_name="Album name"
     )
 
     photographer = models.ForeignKey(
-        ...,
+        Photographer,
         on_delete=models.CASCADE,
-        verbose_name="Fotógrafo"
+        verbose_name="Photographer"
     )
 
     tags = models.ManyToManyField(
-        ...,
-        verbose_name="Lista de tags"
+        Tag,
+        verbose_name="Album tag list"
     )
 
-    link = models.URLField(
-        verbose_name="Link do álbum"
+    link_album = models.URLField(
+        verbose_name="Album link"
     )
 
-    created_at = models.DateTimeField(
+    created_at_album = models.DateTimeField(
         default=datetime.now(),
-        verbose_name="Data de criação"
+        verbose_name="Album creation date"
     )
 
-    updated_at = models.DateTimeField(
+    updated_at_album = models.DateTimeField(
         auto_now=True,
-        verbose_name="Data de atualização"
+        verbose_name="Album update date"
     )
 
     def __str__(self):
-        return f"{self.id_album} - {self.nome_album}"
+        return f"{self.id} - {self.name_album}"
     
     class Meta:
-        verbose_name = "Álbum",
-        verbose_name_plural = "Álbuns"
-        ordering = ['id_album', 'name_album']
+        verbose_name = "Album",
+        verbose_name_plural = "Albuns"
+        ordering = ['id', 'name_album']
