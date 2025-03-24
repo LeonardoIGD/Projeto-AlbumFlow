@@ -1,5 +1,5 @@
 from rest_framework import viewsets, permissions
-from album.models import  Album
+from gallery.models import Album
 from ..serializers.album_serializer import AlbumSerializer
 
 

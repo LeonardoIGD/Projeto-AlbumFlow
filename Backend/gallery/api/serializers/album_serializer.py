@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from album.models import Album
+from gallery.models import Album
 from user.api import TagSerializer
 
 
