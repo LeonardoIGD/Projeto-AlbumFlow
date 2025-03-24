@@ -27,16 +27,10 @@ class LoginAPI(APIView):
         password = serializer.data['password']
 
         user_obj = authenticate(username = username, password = password)
-        if user_obj:
-            token , _ =Token.objects.get_or_create(user=user_obj)
-            return Response({
-                "status" : True,
-                "data" : {'token' : str(token)}
-            })
+        if not user_obj:
+            return Response({"status": False, "message": "Invalid credentials"}, status=401)
 
-        
-        return Response({
-                "status" : False,
-                "data" : {},
-                "message" : "Credentials invalid"
-            })
+        token, _ = Token.objects.get_or_create(user=user_obj)
+        photographer = Photographer.objects.filter(user=user_obj).first()
+
+        return Response({"status": True, "token": str(token), "user": photographer.id})
