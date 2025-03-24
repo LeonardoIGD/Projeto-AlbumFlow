@@ -1,17 +1,10 @@
-import uuid
 from django.db import models
-from datetime import datetime
 
 from user.models import Photographer, Tag
+from gallery.utils import generate_custom_id
 
 
 class Album(models.Model):
-    uuid_album = models.UUIDField(
-        default=uuid.uuid4,
-        editable=False,
-        verbose_name="Album UUID"
-    );
-
     name_album = models.CharField(
         max_length=50,
         verbose_name="Album name"
@@ -25,15 +18,20 @@ class Album(models.Model):
 
     tags = models.ManyToManyField(
         Tag,
-        verbose_name="Album tag list"
+        verbose_name="Album tag list",
+        null=True,
+        blank=True
     )
 
-    link_album = models.URLField(
-        verbose_name="Album link"
+    s3_path_album = models.CharField(
+        max_length=255, 
+        blank=True, 
+        editable=False,
+        verbose_name="Album path S3"
     )
 
     created_at_album = models.DateTimeField(
-        default=datetime.now(),
+        auto_now_add=True,
         verbose_name="Album creation date"
     )
 
@@ -45,6 +43,12 @@ class Album(models.Model):
     def __str__(self):
         return f"{self.id} - {self.name_album}"
     
+    def save(self, *args, **kwargs):
+        if not self.s3_path_album:
+            self.s3_path_album = f"{self.photographer.s3_folder}albums/{generate_custom_id(self.name_album)}/"
+        
+        super().save(*args, **kwargs)
+
     class Meta:
         verbose_name = "Album",
         verbose_name_plural = "Albuns"

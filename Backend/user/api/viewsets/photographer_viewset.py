@@ -11,7 +11,7 @@ from user.api import PhotographerSerializer, LoginSerializer
 class PhotographerViewSet(viewsets.ModelViewSet):
     queryset = Photographer.objects.all()
     serializer_class = PhotographerSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
 class LoginAPI(APIView):
     def post(self, request):

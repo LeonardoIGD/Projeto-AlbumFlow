@@ -16,9 +16,9 @@ admin.site.register(Album, AlbumAdmin)
 class PhotoAdmin(admin.ModelAdmin):
     model = Photo
 
-    list_display = ('id', 'name_photo', 'url_photo', 'format_photo', 'size_photo')
+    list_display = ('id', 'name_photo')
 
     search_fields = ('name_album',)
-    ordering = ('id', 'size_photo')
+    ordering = ('id',)
 
 admin.site.register(Photo, PhotoAdmin)

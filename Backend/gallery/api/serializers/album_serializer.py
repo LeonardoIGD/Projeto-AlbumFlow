@@ -9,8 +9,5 @@ class AlbumSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Album
-        fields = [
-            'uuid_album', 'name_album', 'photographer', 'tags', 
-            'link_album', 'created_at_album', 'updated_at_album'
-        ]
-        read_only_fields = ['uuid_album', 'created_at_album', 'updated_at_album']
+        fields = ['name_album', 'photographer', 'tags', 'created_at_album', 'updated_at_album']
+        read_only_fields = ['s3_path_album', 'created_at_album', 'updated_at_album']
