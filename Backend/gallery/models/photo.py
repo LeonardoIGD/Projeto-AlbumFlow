@@ -31,11 +31,6 @@ class Photo(models.Model):
         verbose_name="Photo album"
     )
 
-    name_photo = models.CharField(
-        max_length=60,
-        verbose_name="Photo name"
-    )
-
     photo = models.FileField(
         storage=PhotoStorage(),
         upload_to='',
@@ -50,6 +45,10 @@ class Photo(models.Model):
         verbose_name="Photo path S3"
     )
 
+    @property
+    def name_photo(self):
+        return self.photo.name
+    
     @property
     def format_photo(self):
         return os.path.splitext(self.photo.name)[1][1:].upper() if self.photo else ''
@@ -86,4 +85,4 @@ class Photo(models.Model):
     class Meta:
         verbose_name = "Photo"
         verbose_name_plural = "Photos"
-        ordering = ['id', 'name_photo']
+        ordering = ['id']
