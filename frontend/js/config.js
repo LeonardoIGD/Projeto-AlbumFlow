@@ -97,26 +97,6 @@ async function updateProfileForm(userData) {
 }
 
 function setupEventListeners() {
-    // Mostrar/ocultar senha
-    document.querySelector('.show-password').addEventListener('click', function() {
-        const passwordInput = document.getElementById('password');
-        const icon = this.querySelector('i');
-        
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            icon.classList.replace('fa-eye', 'fa-eye-slash');
-        } else {
-            passwordInput.type = 'password';
-            icon.classList.replace('fa-eye-slash', 'fa-eye');
-        }
-    });
-
-    // Botão de alterar senha
-    document.querySelector('.change-password-btn').addEventListener('click', function() {
-        // Implementar lógica para alteração de senha
-        showNotification('Funcionalidade de alteração de senha será implementada aqui', 'info');
-    });
-
     // Botão cancelar
     document.querySelector('.cancel-btn').addEventListener('click', function(e) {
         e.preventDefault();
