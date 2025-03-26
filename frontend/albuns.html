@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/albuns.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>AlbumFlow - Álbuns</title>
+</head>
+
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo-container">
+                <img src="img/LogoPhot.png" alt="logo-page" class="logo">
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li class="nav-item">
+                        <a href="inicio.html" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            <span>Início</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="albuns.html" class="nav-link">
+                            <i class="fas fa-images"></i>
+                            <span>Álbuns</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes.html" class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Configurações</span>
+                        </a>
+                    </li>
+                    <li class="nav-item logout">
+                        <a href="login.html" class="nav-link">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Sair</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header">
+                <div class="user-info">
+                    <div class="avatar">
+                        <img src="img/person_24px_outlined.svg" alt="user">
+                    </div>
+                    <span id="username" class="username"></span>
+                </div>
+            </header>
+
+            <section class="list-section">
+                <h1 class="section-title">Lista de Álbuns</h1>
+
+                <div class="albuns-secao">
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i> Carregando álbuns...
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/albuns.js"></script>
+</body>
+
+</html>
