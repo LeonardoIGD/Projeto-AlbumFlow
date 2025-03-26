@@ -23,11 +23,73 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('btn-cancelar').addEventListener('click', resetForm);
     }
 
-    function loadUserInfo() {
-        const user = localStorage.getItem('user');
-        if (user) {
-            document.getElementById('username').textContent = user;
+    async function getUserInfo() {
+        const API_BASE_URL = 'http://127.0.0.1:8000/api';
+        const ERROR_MESSAGES = {
+            noToken: 'Autenticação necessária. Por favor, faça login novamente.',
+            noUserId: 'ID do usuário não encontrado.',
+            apiError: 'Erro ao obter informações do usuário.'
+        };
+    
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                showNotification(ERROR_MESSAGES.noToken, 'error');
+                return;
+            }
+    
+            const userId = localStorage.getItem('user');
+            if (!userId) {
+                showNotification(ERROR_MESSAGES.noUserId, 'error');
+                return;
+            }
+    
+            const response = await fetch(`${API_BASE_URL}/users/${userId}/`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Token ${token}`,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            });
+    
+            if (!response.ok) {
+                const errorData = await parseErrorResponse(response);
+                throw new Error(errorData.message || ERROR_MESSAGES.apiError);
+            }
+    
+            const userData = await response.json();
+            
+            if (!userData || typeof userData !== 'object') {
+                throw new Error('Dados do usuário inválidos');
+            }
+    
+            console.debug('Informações do usuário obtidas:', userData);
+            return userData;
+    
+        } catch (error) {
+            console.error('Falha na obtenção dos dados:', error);
+            showNotification(error.message || ERROR_MESSAGES.apiError, 'error');
+            return;
         }
+    }
+
+    async function loadUserInfo() {
+        const userData = await getUserInfo();
+    
+        if (userData) {
+            const usernameElement = document.getElementById('username');
+            if (usernameElement) {
+                usernameElement.textContent = userData.name_photographer || 'Usuário';
+            }
+            
+            return userData;
+        }
+    
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 500);
     }
 
     function handleFileSelect(event) {
@@ -140,55 +202,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } finally {
             showLoading(false);
         }
-    }
-
-    // function handleAlbumSubmit(event) {
-    //     event.preventDefault();
-        
-    //     const nomeAlbum = document.getElementById('album-nome').value.trim();
-    //     const idUser = localStorage.getItem('user');
-        
-    //     console.log("Dados enviados:", JSON.stringify({
-    //         name_album: nomeAlbum,
-    //         photographer: Number(idUser)
-    //     })); // 🔍 Verifica o envio
-    
-    //     fetch('http://127.0.0.1:8000/api/gallery/album/', {
-    //         method: "POST",
-    //         headers: {
-    //             "Accept": "application/json",
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify({
-    //             name_album: nomeAlbum,
-    //             photographer: Number(idUser)
-    //         })
-    //     })
-    //     .then(response => {
-    //         // Log da resposta bruta do servidor
-    //         console.log("Resposta bruta do servidor:", response);
-    
-    //         // Verificar se a resposta foi bem-sucedida
-    //         if (!response.ok) {
-    //             throw new Error('Erro ao enviar dados');
-    //         }
-    //         return response.json();
-    //     })
-    //     .then(data => {
-    //         // Verificando o conteúdo da resposta convertida
-    //         console.log("Resposta do servidor:", data);
-            
-    //         // Exemplo de acesso aos campos retornados
-    //         if (data.name_album) {
-    //             console.log("Nome do Álbum:", data.name_album);
-    //         }
-    //         if (data.photographer) {
-    //             console.log("ID do Fotógrafo:", data.photographer);
-    //         }
-    //     })
-    //     .catch(error => console.error("Erro ao criar álbum:", error));
-    // }
-    
+    } 
 
     async function createAlbum(nomeAlbum) {
         try {
