@@ -1,3 +1,4 @@
+import os
 from django.contrib.auth.models import User
 from rest_framework.test import APITestCase
 from rest_framework import status
@@ -6,7 +7,10 @@ from gallery.api.serializers.album_serializer import AlbumSerializer
 
 class TestAlbumSerializer(APITestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username="fotografo", password="senha123")
+        self.user = User.objects.create_user(
+            username="fotografo", 
+            password=os.getenv('TEST_PASSWORD', 'ComplexTestPass123!')
+        )
         self.client.force_authenticate(user=self.user)
 
         self.album = Album.objects.create(title="Meu Álbum", user=self.user)

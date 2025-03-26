@@ -86,7 +86,7 @@ class TestPhotographerSerializer(APITestCase):
 
     def test_login(self):
         url = "/api/users/login"
-        data = {"username": "felipe", "password": "senha"}
+        data = {"username": "felipe", "password":os.getenv('TEST_PASSWORD', 'ComplexTestPass123!')}
         response = self.client.post(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn("token", response.data)
