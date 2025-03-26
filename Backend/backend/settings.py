@@ -31,7 +31,8 @@ DEBUG = os.getenv('DEBUG', '1')
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', '').split(',')
-
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')
+CORS_ALLOW_CREDENTIALS = True
 
 # Application definition
 
@@ -45,8 +46,11 @@ INSTALLED_APPS = [
     # bibliotecas
     'rest_framework',
     'corsheaders',
+    'drf_spectacular',
+    'rest_framework.authtoken',
     # apps
-    'user.apps.UserConfig',
+    'gallery',
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -80,6 +84,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -104,6 +111,12 @@ else:
         }
     }
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema'
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -143,3 +156,25 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'API Photographers',
+    'DESCRIPTION': 'API for photographers platforms',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
+
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_SESSION_TOKEN = os.getenv("AWS_SESSION_TOKEN")
+
+AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
+AWS_S3_REGION_NAME = os.getenv("AWS_S3_REGION_NAME")
+AWS_S3_CUSTOM_DOMAIN = os.getenv("AWS_S3_CUSTOM_DOMAIN")
+AWS_DEFAULT_ACL = 'private'
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_S3_FILE_OVERWRITE = False
+AWS_QUERYSTRING_AUTH = True
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
