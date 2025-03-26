@@ -62,9 +62,6 @@ class TestPhotographerSerializer(APITestCase):
         }
 
         response = self.client.put(url, new_data, format="json")  
-
-        print(response.data)
-
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         
         self.photographer.refresh_from_db() 
@@ -86,3 +83,10 @@ class TestPhotographerSerializer(APITestCase):
         self.assertEqual(self.photographer.type_user, "fotografo")
         self.assertEqual(self.photographer.name_photographer, "Felipe Hidequel")
         self.assertEqual(self.photographer.name_company, "fotos massa")
+
+    def test_login(self):
+        url = "/api/users/login"
+        data = {"username": "felipe", "password": "senha"}
+        response = self.client.post(url, data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn("token", response.data)
