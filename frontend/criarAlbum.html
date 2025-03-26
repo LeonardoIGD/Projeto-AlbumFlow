@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Crie novos álbuns fotográficos e adicione suas fotos">
+    <link rel="stylesheet" href="css/criarAlbum.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>AlbumFlow - Criar Álbum</title>
+</head>
+
+
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo-container">
+                <img src="img/LogoPhot.png" alt="logo-page" class="logo">
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li class="nav-item">
+                        <a href="inicio.html" class="nav-link">
+                            <i class="fas fa-home"></i>
+                            <span>Início</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="albuns.html" class="nav-link">
+                            <i class="fas fa-images"></i>
+                            <span>Álbuns</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="configuracoes.html" class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Configurações</span>
+                        </a>
+                    </li>
+                    <li class="nav-item logout">
+                        <a href="login.html" class="nav-link">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Sair</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header">
+                <div class="user-info">
+                    <div class="avatar">
+                        <img src="img/person_24px_outlined.svg" alt="user">
+                    </div>
+                    <span id="username" class="username"></span>
+                </div>
+            </header>
+
+            <section class="create-section">
+                <h1 class="section-title"> Criando um álbum </h1>
+
+                <section class="main-form">
+                    <section class="creating-intro">
+                        <h5> Preencha as informações abaixo: </h5>
+                        <p class="instruction-text">Campos marcados com * são obrigatórios</p>
+                    </section>
+
+                    <form id="albumForm" class="album-form">
+                        <section class="infos-album">
+                            <div class="form-content">
+                                <div class="form-group">
+                                    <label for="album-nome">* Nome do Álbum</label>
+                                    <input type="text" class="form-control" id="album-nome" placeholder="Nome do Álbum"
+                                        required aria-required="true">
+                                    <small class="form-text text-muted">Máximo de 100 caracteres</small>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="album-tags">Tags (opcional)</label>
+                                <div class="tags-container">
+                                    <button type="button" class="btn btn-outline-secondary" id="btn-add-tag"
+                                        aria-label="Adicionar tag">
+                                        + Adicionar Tag
+                                    </button>
+                                    <div id="tags-list" class="tags-list"></div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="upload-section">
+                            <div class="upload-area" id="uploadArea">
+                                <label for="ipt-album" class="upload-label">
+                                    <span class="upload-instruction">Arraste suas fotos aqui ou clique para
+                                        selecionar</span>
+                                    <small class="upload-requirements">Formatos aceitos: JPG, PNG, GIF. Máx. 10MB por
+                                        arquivo.</small>
+                                </label>
+                                <input id="ipt-album" type="file" accept="image/*" multiple class="upload-input"
+                                    aria-describedby="fileHelp">
+                            </div>
+
+                            <div id="image-preview" class="image-preview">
+                                <!-- Preview das imagens será inserido aqui via JavaScript -->
+                            </div>
+
+                            <small id="fileHelp" class="form-text text-muted">
+                                Você pode selecionar múltiplas fotos
+                            </small>
+                        </section>
+
+                        <section class="form-actions">
+                            <button type="button" id="btn-cancelar" class="btn btn-outline-danger">
+                                <strong>Cancelar</strong>
+                            </button>
+                            <button type="submit" id="btn-salvar" class="btn btn-primary">
+                                <strong>Salvar Álbum</strong>
+                            </button>
+                        </section>
+                    </form>
+                </section>
+            </section>
+
+        </main>
+    </div>
+
+    <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Feedback</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- Conteúdo dinâmico -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Processando...</span>
+        </div>
+        <p class="loading-text">Enviando seus arquivos...</p>
+    </div>
+
+    <script src="js/criarAlbum.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

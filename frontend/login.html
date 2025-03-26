@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlbumFlow - Login</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+    <div class="login-content">
+        <div class="img-login">
+            <img src="img/LogoPhot.png" alt="Logo Phot">
+        </div>
+
+        <div class="form-login">
+            <form id="loginForm">
+                <h1>Login</h1>
+
+                <div class="input-container">
+                    <input id="inpt-usuario" type="text" required placeholder="Usuário" autocomplete="username">
+                </div>
+
+                <div class="input-container">
+                    <input id="inpt-senha" type="password" required placeholder="Senha" autocomplete="current-password">
+                </div>
+
+                <button type="submit" id="btn-login">Entrar</button>
+
+                <div class="login-links">
+                    <a href="#">Esqueci minha senha</a>
+                    <span>•</span>
+                    <a href="#">Criar conta</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="loading" class="loading" style="display:none;">
+        <div class="spinner"></div>
+    </div>
+
+    <script src="js/login.js" defer></script>
+</body>
+
+</html>
