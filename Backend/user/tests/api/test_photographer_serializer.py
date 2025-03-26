@@ -1,3 +1,4 @@
+import os
 from django.contrib.auth.models import User
 from rest_framework.test import APITestCase
 from rest_framework import status
@@ -7,7 +8,10 @@ from user.api.serializers.photographer_serializer import PhotographerSerializer
 
 class TestPhotographerSerializer(APITestCase):
     def setUp(self) -> None:
-        self.user = User.objects.create_user(username="felipe", password="senha")
+        self.user = User.objects.create_user(
+            username="felipe",
+            password=os.getenv('TEST_PASSWORD', 'ComplexTestPass123!')
+        )
         self.photographer = Photographer.objects.create(
             user=self.user,
             type_user="fotografo",
